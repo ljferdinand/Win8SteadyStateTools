@@ -42,11 +42,10 @@ $timestamp = TimerInit()
 FileCopy($aDriveLetter & "temp.vhd.orig", $aDriveLetter & "\temp" & $timestamp & ".vhd")
 
 ;Configure BCD Store- change timeout as necessary but with Windows 8  you may need to go to "Advanced Startup Options" to access other VHDs
-RunWait('cmd /c bcdedit -default ' & $guid1,"",@SW_HIDE)
 RunWait('cmd /c bcdedit -timeout 0',"",@SW_HIDE)
 RunWait('cmd /c bcdedit -set {default} device vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
 RunWait('cmd /c bcdedit -set {default} osdevice vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
-
+RunWait('cmd /c bcdedit -default ' & $guid1,"",@SW_HIDE)
 
 If @OSArch = "X64" Then
 	Local $stOldVal = DllStructCreate("dword")
