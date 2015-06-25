@@ -31,15 +31,16 @@ For $i = 1 To $aArray[0]
         ;#MsgBox($MB_SYSTEMMODAL, "", $aFileLocation)
    EndIf
 Next
-;MsgBox($MB_SYSTEMMODAL, "", $aDriveLetter)
+MsgBox($MB_SYSTEMMODAL, "", $aDriveLetter)
 
 ;Copy the Diff'd vhd to temp.vhd.orig so it can be used later, then delete temp.vhd
 FileCopy($aDriveLetter & "\temp.vhd", $aDriveLetter & "\temp.vhd.orig")
 FileDelete($aDriveLetter & "\temp.vhd")
 
+
 ;Assign unique name to new temp vhd so it is deleted on reboot, while retaining "template" temp.vhd.orig
 $timestamp = TimerInit()
-FileCopy($aDriveLetter & "temp.vhd.orig", $aDriveLetter & "\temp" & $timestamp & ".vhd")
+FileCopy($aDriveLetter & "\temp.vhd.orig", $aDriveLetter & "\temp" & $timestamp & ".vhd")
 
 ;Configure BCD Store- change timeout as necessary but with Windows 8  you may need to go to "Advanced Startup Options" to access other VHDs
 RunWait('cmd /c bcdedit -timeout 0',"",@SW_HIDE)
