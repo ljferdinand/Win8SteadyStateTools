@@ -31,7 +31,7 @@ For $i = 1 To $aArray[0]
         ;#MsgBox($MB_SYSTEMMODAL, "", $aFileLocation)
    EndIf
 Next
-MsgBox($MB_SYSTEMMODAL, "", $aDriveLetter)
+;MsgBox($MB_SYSTEMMODAL, "", $aDriveLetter)
 
 ;Copy the Diff'd vhd to temp.vhd.orig so it can be used later, then delete temp.vhd
 FileCopy($aDriveLetter & "\temp.vhd", $aDriveLetter & "\temp.vhd.orig")
@@ -44,8 +44,8 @@ FileCopy($aDriveLetter & "\temp.vhd.orig", $aDriveLetter & "\temp" & $timestamp 
 
 ;Configure BCD Store- change timeout as necessary but with Windows 8  you may need to go to "Advanced Startup Options" to access other VHDs
 RunWait('cmd /c bcdedit -timeout 0',"",@SW_HIDE)
-RunWait('cmd /c bcdedit -set {default} device vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
-RunWait('cmd /c bcdedit -set {default} osdevice vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
+RunWait('cmd /c bcdedit -set ' & $guid1 & ' device vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
+RunWait('cmd /c bcdedit -set ' & $guid1 & ' osdevice vhd=' & Chr(91) & $aDriveLetter & Chr(93) & '\temp' & $timestamp & '.vhd',"",@SW_HIDE)
 RunWait('cmd /c bcdedit -default ' & $guid1,"",@SW_HIDE)
 
 If @OSArch = "X64" Then
