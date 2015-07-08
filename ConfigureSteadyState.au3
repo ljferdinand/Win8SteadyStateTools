@@ -15,6 +15,7 @@ If @OSArch = "X64" Then
 RunWait('schtasks /Create /XML C:\windows\system\steadystate.xml /TN "SteadyState Startup Script"',"",@SW_HIDE)
 
 ;Export BCD Store for in-use VHD to guid.txt then format file for future use
+RunWait('cmd /c bcdedit -export C:\windows\system\BCDBACKUP',"")
 RunWait('cmd /c bcdedit -copy {current} /d "SteadyState" > c:\windows\system\guid.txt',"",@SW_HIDE)
 $guid1 = FileRead('c:\windows\system\guid.txt', FileGetSize('c:\windows\system\guid.txt'))
 $guid1 = StringReplace($guid1, "The entry was successfully copied to ", "")
